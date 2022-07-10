@@ -1,6 +1,5 @@
-local Ut = require('utils')
+local Ut = require('persistent-breakpoints.utils')
 local breakpoints = require('dap.breakpoints')
-
 local M = {}
 local default_cfg = {
 	save_dir = vim.fn.stdpath('data') .. '/nvim_checkpoints'
