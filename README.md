@@ -21,7 +21,6 @@ use {
 vim.api.nvim_create_autocmd({"BufReadPost"},{ callback = require('persistent-breakpoints.api').load_breakpoints })
 
 -- Save breakpoints to file automatically.
--- It can save the breakpoints properly even if a buffer with breakpoints have been closed.
 keymap("n", "<YourKey1>", "<cmd>lua require('dap').toggle_breakpoint(); require('persistent-breakpoints.api').store_breakpoints(false)<cr>", opts)
 keymap("n", "<YourKey2>", "<cmd>lua require('dap').set_breakpoint(vim.fn.input '[Condition] > '); require('persistent-breakpoints.api').store_breakpoints(false)<cr>", opts)
 keymap("n", "<YourKey3>", "<cmd>lua require('dap').clear_breakpoints(); require('persistent-breakpoints.api').store_breakpoints(true)<cr>", opts)
@@ -36,9 +35,9 @@ Manully load breakpoints to opended buffer.
 
 
 ## Issue
-* Unlike Vscode, persistent breakpoints will only be set when the corresponding file is loaded info buffer.
+* Unlike Vscode, persistent breakpoints will only be set when the corresponding file is loaded info buffer. But it can save the breakpoints properly even if a buffer with breakpoints have been closed.
 * Like Vscode, if your pwd is `/a/b/` and you add breakpoints to file `/a/b/c.xx`, file `/a/b/c.xx`'s breakpoints are not loaded when your pwd is not `/a/b/`.   
-Therefore, a session manager plugin is recommended.
+Therefore, a session manager plugin is recommended. 
 
 ## Other
 PR and ISSUE are welcome:
