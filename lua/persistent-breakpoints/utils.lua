@@ -1,16 +1,5 @@
 local M = {}
 
-M.tableMerge = function(t1, t2)
-	for k,v in pairs(t2) do
-		if type(v) == "table" and type(t1[k]) == 'table' then
-			M.tableMerge(t1[k] or {}, t2[k] or {})
-		else
-			t1[k] = v
-		end
-	end
-	return t1
-end
-
 M.create_path = function(path)
 	os.execute('mkdir -p ' .. path)
 end
