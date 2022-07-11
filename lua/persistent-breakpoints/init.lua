@@ -5,7 +5,6 @@ local default_cfg = {
 }
 
 M.setup = function(_cfg)
-	vim.notify('persistent breakpoints setup','INFO')
 	_G.pbps_cfg = vim.tbl_deep_extend('force',default_cfg,_cfg or {})
 	_G.fpbps = Ut.load_bps(Ut.get_bps_path()) -- {'filename':breakpoints_table}
 	Ut.create_path(_G.pbps_cfg.save_dir)

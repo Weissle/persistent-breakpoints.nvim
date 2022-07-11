@@ -5,14 +5,12 @@ local M = {}
 
 M.store_breakpoints = function (clear)
 	local bps_path,fbps = Ut.get_bps_path(),_G.fpbps
-	print(vim.pretty_print(fbps))
 	if clear == nil or clear == false then
 		local current_buf_file_name = vim.api.nvim_buf_get_name(0)
 		local current_buf_id = vim.api.nvim_get_current_buf()
 		local current_buf_breakpoints = breakpoints.get()[current_buf_id]
 		fbps[current_buf_file_name] = current_buf_breakpoints
 	end
-	print(vim.pretty_print(fbps))
 	local fp = io.open(bps_path, 'w+')
 	if fp == nil then
 		vim.notify('Failed to save checkpoints. File: ' .. vim.fn.expand('%'), 'WARN')
@@ -38,7 +36,6 @@ M.load_breakpoints = function()
 		end
 	end
 	for file_name, buf_id in pairs(new_loaded_bufs) do
-		print(file_name)
 		for _, bp in pairs(fbps[file_name]) do
 			local line = bp.line
 			local opts = {
