@@ -23,17 +23,17 @@ vim.api.nvim_create_autocmd({"BufReadPost"},{ callback = require('persistent-bre
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 -- Save breakpoints to file automatically.
-keymap("n", "<YourKey1>", "<cmd>lua require('dap').toggle_breakpoint(); require('persistent-breakpoints.api').store_breakpoints(false)<cr>", opts)
-keymap("n", "<YourKey2>", "<cmd>lua require('dap').set_breakpoint(vim.fn.input '[Condition] > '); require('persistent-breakpoints.api').store_breakpoints(false)<cr>", opts)
-keymap("n", "<YourKey3>", "<cmd>lua require('dap').clear_breakpoints(); require('persistent-breakpoints.api').store_breakpoints(true)<cr>", opts)
+keymap("n", "<YourKey1>", "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint<cr>", opts)
+keymap("n", "<YourKey2>", "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", opts)
+keymap("n", "<YourKey3>", "<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>", opts)
 ```
 
-### **:PBReload** 
-Clear all breakpoints and reload from file.  
-### **:PBStore** 
-Manully store all breakpoints to file.  
-### **:PBLoad** 
-Manully load breakpoints to opended buffer.  
+### **:PBToggleBreakpoint** 
+Like require('dap').toggle_breakpoint()
+### **:PBSetConditionalBreakpoint** 
+Like require('dap').set_breakpoint()
+### **:PBClearAllBreakpoints** 
+Like require('dap').clear_breakpoints()
 
 
 ## Issue
