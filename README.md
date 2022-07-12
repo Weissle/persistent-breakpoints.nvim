@@ -29,11 +29,11 @@ keymap("n", "<YourKey3>", "<cmd>lua require('persistent-breakpoints.api').clear_
 ```
 
 ### **:PBToggleBreakpoint** 
-Like require('dap').toggle_breakpoint()
+Like `:lua require('dap').toggle_breakpoint()`
 ### **:PBSetConditionalBreakpoint** 
-Like require('dap').set_breakpoint(vim.fn.input('[Condition] > '))
+Like `:lua require('dap').set_breakpoint(vim.fn.input('[Condition] > '))`
 ### **:PBClearAllBreakpoints** 
-Like require('dap').clear_breakpoints()
+Like `:lua require('dap').clear_breakpoints()`
 
 
 ## Issue
