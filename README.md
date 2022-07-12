@@ -31,7 +31,7 @@ keymap("n", "<YourKey3>", "<cmd>lua require('persistent-breakpoints.api').clear_
 ### **:PBToggleBreakpoint** 
 Like require('dap').toggle_breakpoint()
 ### **:PBSetConditionalBreakpoint** 
-Like require('dap').set_breakpoint()
+Like require('dap').set_breakpoint(vim.fn.input('[Condition] > '))
 ### **:PBClearAllBreakpoints** 
 Like require('dap').clear_breakpoints()
 
