@@ -2,7 +2,7 @@ local cfg = require('persistent-breakpoints.config')
 local M = {}
 
 M.create_path = function(path)
-	os.execute('mkdir -p ' .. path)
+	vim.fn.mkdir(path, "p")
 end
 
 M.get_bps_path = function ()
