@@ -1,4 +1,5 @@
 local utils = require('persistent-breakpoints.utils')
+local config = require('persistent-breakpoints.config')
 local inmemory_bps = require('persistent-breakpoints.inmemory')
 local breakpoints = require('dap.breakpoints')
 
@@ -12,19 +13,19 @@ local function breakpoints_changed_in_current_buffer()
 	inmemory_bps.changed = not write_ok
 end
 
-local M = {}
+local F = {}
 
-M.toggle_breakpoint = function ()
+F.toggle_breakpoint = function ()
 	require('dap').toggle_breakpoint();
 	breakpoints_changed_in_current_buffer()
 end
 
-M.set_conditional_breakpoint = function ()
+F.set_conditional_breakpoint = function ()
 	require('dap').set_breakpoint(vim.fn.input('[Condition] > '));
 	breakpoints_changed_in_current_buffer()
 end
 
-M.clear_all_breakpoints = function ()
+F.clear_all_breakpoints = function ()
 	breakpoints.clear()
 	inmemory_bps.bps = {}
 	inmemory_bps.changed = true
@@ -32,7 +33,7 @@ M.clear_all_breakpoints = function ()
 	inmemory_bps.changed = not write_ok
 end
 
-M.store_breakpoints = function (clear)
+F.store_breakpoints = function (clear)
 	if clear == nil then
 		local tmp_fbps = vim.deepcopy(inmemory_bps.bps)
 		for bufid, bufbps in pairs(breakpoints.get()) do
@@ -42,14 +43,14 @@ M.store_breakpoints = function (clear)
 	else
 		vim.notify_once('The store_breakpoints function will not accept parameters in the future. If you want to clear all breakpoints, you should the use clear_all_breakpoints function.','WARN')
 		if clear == true then
-			M.clear_all_breakpoints()
+			F.clear_all_breakpoints()
 		else
-			M.store_breakpoints(nil)
+			F.store_breakpoints(nil)
 		end
 	end
 end
 
-M.load_breakpoints = function()
+F.load_breakpoints = function()
 	local bbps = breakpoints.get()
 	local fbps = inmemory_bps.bps
 	local new_loaded_bufs = {}
@@ -75,11 +76,38 @@ M.load_breakpoints = function()
 	end
 end
 
-M.reload_breakpoints = function ()
+F.reload_breakpoints = function ()
 	inmemory_bps.bps = utils.load_bps(utils.get_bps_path())
 	inmemory_bps.changed = false
 	breakpoints.clear()
-	M.load_breakpoints()
+	F.load_breakpoints()
+end
+
+local perf_data = {}
+
+local M = {}
+
+for func_name, func_body in pairs(F) do
+	M[func_name] = function ()
+		if config.perf_record then
+			local start_time = vim.fn.reltimefloat(vim.fn.reltime())
+			func_body()
+			local end_time = vim.fn.reltimefloat(vim.fn.reltime())
+			perf_data[func_name] = end_time - start_time
+		else
+			func_body()
+		end
+	end
+end
+
+M.print_perf_data = function ()
+	local result = ''
+	for fn, fd in pairs(perf_data) do
+		local ms = math.floor(fd*1e6+0.5)/1e3
+		local str = fn .. ': ' .. tostring(ms) .. 'ms\n'
+		result = result .. str
+	end
+	print(result)
 end
 
 return M

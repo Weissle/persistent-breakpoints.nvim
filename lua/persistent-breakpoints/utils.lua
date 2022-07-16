@@ -6,13 +6,11 @@ M.create_path = function(path)
 end
 
 M.get_bps_path = function ()
-	assert(type(cfg.config) == 'table', 'Use persistent-breakpoints functions but not setup!')
 	local cp_filename = (vim.fn.getcwd()):gsub('/','_') .. '.json'
-	return cfg.config.save_dir .. '/' .. cp_filename
+	return cfg.save_dir .. '/' .. cp_filename
 end
 
 M.load_bps = function (path)
-	assert(type(cfg.config) == 'table', 'Use persistent-breakpoints functions but not setup!')
 	local fp = io.open(path,'r')
 	local bps = {}
 	if fp ~= nil then
@@ -25,7 +23,6 @@ end
 
 M.write_bps = function (path, bps)
 	bps = bps or {}
-	assert(type(cfg.config) == 'table', 'Use persistent-breakpoints functions but not setup!')
 	assert(type(bps) == 'table', "The persistent breakpoints should be stored in a table. Usually it is not the user's problem if you did not call the write_bps function explicitly.")
 
 	local fp = io.open(path, 'w+')

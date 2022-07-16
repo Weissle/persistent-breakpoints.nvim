@@ -1,10 +1,9 @@
-local M = {}
+local config = {}
 
-M.default_cfg = {
-	save_dir = vim.fn.stdpath('data') .. '/nvim_checkpoints'
+config = {
+	save_dir = vim.fn.stdpath('data') .. '/nvim_checkpoints',
+	perf_record = false,
 }
 
-M.config = nil
-
-return M
+return config
 

@@ -4,17 +4,23 @@ persistent-breakpoints is a lua plugin for Neovim to save the [nvim-dap](https:/
 :star: Your stars are my biggest motivation.
 
 ## Install
-With packer.nvim  
-```lua
-use {
-	'Weissle/persistent-breakpoints.nvim',
-	requires = 'mfussenegger/nvim-dap',
-	config = function ()
-		require('persistent-breakpoints').setup{}
-	end
-}
-```
+### with `packer.nvim`  
+`use {'Weissle/persistent-breakpoints.nvim'}`  
+### or with `vim-plug`  
+`Plug 'Weissle/persistent-breakpoints.nvim'`
 
+## Setup
+```lua
+require('persistent-breakpoints').setup{} -- use default config
+```
+Below is the default config, you can change it according to your need.
+```lua
+require('persistent-breakpoints').setup{
+	save_dir = vim.fn.stdpath('data') .. '/nvim_checkpoints',
+	-- record the performance of different function. run :lua require('persistent-breakpoints.api').print_perf_data() to see the result.
+	perf_record = false,
+} 
+```
 ## Usage
 ```lua
 -- automatically load breakpoints when a file is loaded into the buffer.
