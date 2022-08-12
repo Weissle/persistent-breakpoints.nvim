@@ -7,6 +7,9 @@ local function breakpoints_changed_in_current_buffer()
 	local current_buf_file_name = vim.api.nvim_buf_get_name(0)
 	local current_buf_id = vim.api.nvim_get_current_buf()
 	local current_buf_breakpoints = breakpoints.get()[current_buf_id]
+	if #current_buf_file_name == 0 then
+		return
+	end
 	inmemory_bps.bps[current_buf_file_name] = current_buf_breakpoints
 	inmemory_bps.changed = true
 	local write_ok = utils.write_bps(utils.get_bps_path(),inmemory_bps.bps)
