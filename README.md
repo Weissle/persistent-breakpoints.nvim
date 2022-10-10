@@ -15,7 +15,7 @@ persistent-breakpoints is a lua plugin for Neovim to save the [nvim-dap](https:/
 ```lua
 require('persistent-breakpoints').setup{
 	load_breakpoints_event = { "BufReadPost" }
-} -- use default config
+}
 ```
 Below is the default config, you can change it according to your need.
 ```lua
