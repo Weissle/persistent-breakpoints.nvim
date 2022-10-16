@@ -5,9 +5,28 @@ M.create_path = function(path)
 	vim.fn.mkdir(path, "p")
 end
 
+M.get_path_sep = function()
+	if jit then
+		if jit.os == "Windows" then
+			return '\\'
+		else
+			return '/'
+		end
+	else
+		return package.config:sub(1, 1)
+	end
+end
+
 M.get_bps_path = function ()
-	local cp_filename = (vim.fn.getcwd()):gsub('/','_') .. '.json'
-	return cfg.save_dir .. '/' .. cp_filename
+	local path_sep = M.get_path_sep()
+	local base_filename = vim.fn.getcwd()
+
+	if jit and jit.os == 'Windows' then
+		base_filename = base_filename:gsub(':', '_')
+	end
+
+	local cp_filename = base_filename:gsub(path_sep, '_') .. '.json'
+	return cfg.save_dir .. path_sep .. cp_filename
 end
 
 M.load_bps = function (path)
