@@ -29,9 +29,6 @@ require('persistent-breakpoints').setup{
 ```
 ## Usage
 ```lua
--- automatically load breakpoints when a file is loaded into the buffer.
-vim.api.nvim_create_autocmd({"BufReadPost"},{ callback = require('persistent-breakpoints.api').load_breakpoints })
-
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 -- Save breakpoints to file automatically.
