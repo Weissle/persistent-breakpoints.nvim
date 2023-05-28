@@ -4,6 +4,7 @@ config = {
 	save_dir = vim.fn.stdpath('data') .. '/nvim_checkpoints',
 	load_breakpoints_event = nil,
 	perf_record = false,
+	on_load_breakpoint = nil,
 }
 
 return config
