@@ -3,7 +3,9 @@ local config = require('persistent-breakpoints.config')
 local inmemory_bps = require('persistent-breakpoints.inmemory')
 local breakpoints = require('dap.breakpoints')
 
-local function breakpoints_changed_in_current_buffer()
+local F = {}
+
+F.breakpoints_changed_in_current_buffer = function()
 	local current_buf_file_name = vim.api.nvim_buf_get_name(0)
 	local current_buf_id = vim.api.nvim_get_current_buf()
 	local current_buf_breakpoints = breakpoints.get()[current_buf_id]
@@ -16,16 +18,14 @@ local function breakpoints_changed_in_current_buffer()
 	inmemory_bps.changed = not write_ok
 end
 
-local F = {}
-
 F.toggle_breakpoint = function ()
 	require('dap').toggle_breakpoint();
-	breakpoints_changed_in_current_buffer()
+	F.breakpoints_changed_in_current_buffer()
 end
 
 F.set_conditional_breakpoint = function ()
 	require('dap').set_breakpoint(vim.fn.input('[Condition] > '));
-	breakpoints_changed_in_current_buffer()
+	F.breakpoints_changed_in_current_buffer()
 end
 
 F.clear_all_breakpoints = function ()
