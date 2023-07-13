@@ -75,6 +75,9 @@ F.load_breakpoints = function()
 				hit_condition = bp.hitCondition
 			}
 			breakpoints.set(opts, buf_id, line)
+			if config.on_load_breakpoint ~= nil then
+				config.on_load_breakpoint(opts, buf_id, line)
+			end
 		end
 	end
 end
