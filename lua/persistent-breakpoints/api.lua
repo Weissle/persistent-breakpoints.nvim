@@ -18,14 +18,19 @@ F.breakpoints_changed_in_current_buffer = function()
 	inmemory_bps.changed = not write_ok
 end
 
-F.toggle_breakpoint = function ()
-	require('dap').toggle_breakpoint();
+F.call_and_update = function (func)
+	func()
 	F.breakpoints_changed_in_current_buffer()
 end
 
+F.toggle_breakpoint = function ()
+	F.call_and_update(require('dap').toggle_breakpoint)
+end
+
 F.set_conditional_breakpoint = function ()
-	require('dap').set_breakpoint(vim.fn.input('[Condition] > '));
-	F.breakpoints_changed_in_current_buffer()
+	F.call_and_update(function ()
+		require('dap').set_breakpoint(vim.fn.input('[Condition] > '));
+	end)
 end
 
 F.clear_all_breakpoints = function ()
