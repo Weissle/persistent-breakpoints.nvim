@@ -99,14 +99,14 @@ local perf_data = {}
 local M = {}
 
 for func_name, func_body in pairs(F) do
-	M[func_name] = function ()
+	M[func_name] = function (...)
 		if config.perf_record then
 			local start_time = vim.fn.reltimefloat(vim.fn.reltime())
-			func_body()
+			func_body(...)
 			local end_time = vim.fn.reltimefloat(vim.fn.reltime())
 			perf_data[func_name] = end_time - start_time
 		else
-			func_body()
+			func_body(...)
 		end
 	end
 end
