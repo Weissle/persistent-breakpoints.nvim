@@ -29,7 +29,7 @@ F.set_conditional_breakpoint = function ()
 end
 
 F.clear_all_breakpoints = function ()
-	breakpoints.clear()
+	require("dap").clear_breakpoints()
 	inmemory_bps.bps = {}
 	inmemory_bps.changed = true
 	local write_ok = utils.write_bps(utils.get_bps_path(),inmemory_bps.bps)
