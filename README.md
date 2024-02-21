@@ -9,7 +9,15 @@ persistent-breakpoints is a lua plugin for Neovim to save the [nvim-dap](https:/
 ### with `packer.nvim`  
 `use {'Weissle/persistent-breakpoints.nvim'}`  
 ### or with `vim-plug`  
-`Plug 'Weissle/persistent-breakpoints.nvim'`
+`Plug 'Weissle/persistent-breakpoints.nvim'`  
+### or with `lazy.nvim`
+```lua
+{
+	"Weissle/persistent-breakpoints.nvim",
+	event = "BufReadPost",
+	opts = { load_breakpoints_event = { "BufReadPost" } }, -- You can ommit the call to `setup` if you use `opts`
+}
+```
 
 ## Setup
 ```lua
@@ -37,9 +45,9 @@ require('persistent-breakpoints').setup{
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 -- Save breakpoints to file automatically.
-keymap("n", "<YourKey1>", "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", opts)
-keymap("n", "<YourKey2>", "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", opts)
-keymap("n", "<YourKey3>", "<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>", opts)
+keymap("n", "<YourKey1>", require('persistent-breakpoints.api').toggle_breakpoint, opts)
+keymap("n", "<YourKey2>", require('persistent-breakpoints.api').set_conditional_breakpoint, opts)
+keymap("n", "<YourKey3>", require('persistent-breakpoints.api').clear_all_breakpoints, opts)
 ```
 
 ### **:PBToggleBreakpoint** 
