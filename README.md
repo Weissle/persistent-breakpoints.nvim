@@ -42,12 +42,13 @@ require('persistent-breakpoints').setup{
 ```
 ## Usage
 ```lua
+local persistent_breakpoints = require('persistent-breakpoints.api')
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 -- Save breakpoints to file automatically.
-keymap("n", "<YourKey1>", require('persistent-breakpoints.api').toggle_breakpoint, opts)
-keymap("n", "<YourKey2>", require('persistent-breakpoints.api').set_conditional_breakpoint, opts)
-keymap("n", "<YourKey3>", require('persistent-breakpoints.api').clear_all_breakpoints, opts)
+keymap("n", "<YourKey1>", persistent_breakpoints.toggle_breakpoint, opts)
+keymap("n", "<YourKey2>", persistent_breakpoints.set_conditional_breakpoint, opts)
+keymap("n", "<YourKey3>", persistent_breakpoints.clear_all_breakpoints, opts)
 ```
 
 ### **:PBToggleBreakpoint** 
