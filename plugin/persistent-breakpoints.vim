@@ -1,6 +1,7 @@
 
 command! PBToggleBreakpoint lua require('persistent-breakpoints.api').toggle_breakpoint()
 command! PBSetConditionalBreakpoint lua require('persistent-breakpoints.api').set_conditional_breakpoint()
+command! PBSetLogPoint lua require('persistent-breakpoints.api').set_log_point()
 command! PBClearAllBreakpoints lua require('persistent-breakpoints.api').clear_all_breakpoints()
 
 command! PBReload lua require('persistent-breakpoints.api').reload_breakpoints(); vim.notify_once("Command PBReload will be removed in the future since we don't recommand using it directively. But you still can use it by lua module if you really like it.","WARN")

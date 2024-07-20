@@ -40,13 +40,16 @@ local keymap = vim.api.nvim_set_keymap
 keymap("n", "<YourKey1>", "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", opts)
 keymap("n", "<YourKey2>", "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", opts)
 keymap("n", "<YourKey3>", "<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>", opts)
+keymap("n", "<YourKey4>", "<cmd>lua require('persistent-breakpoints.api').set_log_point()<cr>", opts)
 ```
 
 ### **:PBToggleBreakpoint** 
 Like `:lua require('dap').toggle_breakpoint()`
 ### **:PBSetConditionalBreakpoint** 
 Like `:lua require('dap').set_breakpoint(vim.fn.input('[Condition] > '))`
-### **:PBClearAllBreakpoints** 
+### **:PBSetLogPoint**
+Like `:lua require('dap').set_breakpoint(nil, nil, vim.fn.input('[Message] > '))`
+### **:PBClearAllBreakpoints**
 Like `:lua require('dap').clear_breakpoints()`
 
 
