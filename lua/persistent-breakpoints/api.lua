@@ -28,7 +28,12 @@ F.set_conditional_breakpoint = function ()
 	F.breakpoints_changed_in_current_buffer()
 end
 
-F.clear_all_breakpoints = function ()
+F.set_log_point = function()
+	require("dap").set_breakpoint(nil, nil, vim.fn.input("[Message] > "))
+	F.breakpoints_changed_in_current_buffer()
+end
+
+F.clear_all_breakpoints = function()
 	require("dap").clear_breakpoints()
 	inmemory_bps.bps = {}
 	inmemory_bps.changed = true
