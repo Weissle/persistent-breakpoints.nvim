@@ -5,6 +5,7 @@ config = {
 	load_breakpoints_event = nil,
 	perf_record = false,
 	on_load_breakpoint = nil,
+	always_reload = false,
 }
 
 return config

@@ -18,7 +18,16 @@ M.setup = function(_cfg)
 		})
 		vim.api.nvim_create_autocmd(
 			tmp_config.load_breakpoints_event,
-			{ callback = require("persistent-breakpoints.api").load_breakpoints, group = aug }
+			{
+				callback = function ()
+					if tmp_config.always_reload then
+						require("persistent-breakpoints.api").reload_breakpoints()
+					else
+						require("persistent-breakpoints.api").load_breakpoints()
+					end
+				end,
+				group = aug
+			}
 		)
 		vim.api.nvim_create_autocmd(
 			{'DirChanged'},
